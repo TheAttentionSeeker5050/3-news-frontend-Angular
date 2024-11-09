@@ -1,0 +1,41 @@
+<div class="news-container">
+  <h1 class="header">Find the Latest News</h1>
+  
+  <form class="news-form" (ngSubmit)="onSearch()">
+    <div class="form-group">
+      <label for="newsType">Select News Type</label>
+      <select id="newsType" [(ngModel)]="newsType" name="newsType" required>
+        <option value="">-- Select --</option>
+        <option value="local">Local</option>
+        <option value="international">International</option>
+        <option value="business">Business</option>
+        <option value="tech">Tech</option>
+        <option value="sports">Sports</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input id="location" [(ngModel)]="location" name="location" type="text" placeholder="Enter location (leave empty for globally)">
+    </div>
+
+    <button type="submit" class="submit-btn">Search</button>
+  </form>
+  
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading news...</p>
+  </div>
+
+  <div class="news-list" *ngIf="newsList.length > 0">
+    <div *ngFor="let news of newsList" class="news-item">
+      <h2>{{ news.name }}</h2>
+      <p>{{ news.content }}</p>
+      <small>Source: {{ news.source }} | Date: {{ news.date }}</small>
+    </div>
+  </div>
+
+  <div *ngIf="newsList.length === 0 && !loading">
+    <p>No news available for the given search criteria.</p>
+  </div>
+</div>
